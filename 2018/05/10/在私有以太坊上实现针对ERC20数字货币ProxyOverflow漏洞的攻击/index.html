@@ -14,19 +14,19 @@
 <meta property="og:site_name" content="Tencent Security Zhanlu Lab">
 <meta property="og:description" content="ERC20的ProxyOverflow漏洞造成影响广泛，本文将对其攻击方法进行分析，以便于智能合约发布者提高自身代码安全性以及其他研究人员进行测试。本文选择传播广泛、影响恶劣的SMT漏洞（CVE-2018–10376）作为样本进行分析，文中所涉及的代码截图均来自于SMT代码。由于目前各大交易平台已经将ERC20协议的数字货币交易叫停，本文的发布不会对这些货币带来直接影响。  1. ERC20货币及">
 <meta property="og:locale" content="Chinese">
-<meta property="og:image" content="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/SMT合约transferProxy函数.png">
-<meta property="og:image" content="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/SMT.transferAllowed.png">
-<meta property="og:image" content="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/SMT.enableTransfer.png">
-<meta property="og:image" content="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/SMT.onlyOwner.png">
-<meta property="og:image" content="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/lock_defines.png">
-<meta property="og:image" content="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/lock_functions.png">
-<meta property="og:image" content="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/deployment_result.png">
-<meta property="og:image" content="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/attack_result.png">
-<meta property="og:updated_time" content="2018-05-10T09:10:41.512Z">
+<meta property="og:image" content="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/SMT合约transferProxy函数.png">
+<meta property="og:image" content="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/SMT.transferAllowed.png">
+<meta property="og:image" content="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/SMT.enableTransfer.png">
+<meta property="og:image" content="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/SMT.onlyOwner.png">
+<meta property="og:image" content="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/lock_defines.png">
+<meta property="og:image" content="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/lock_functions.png">
+<meta property="og:image" content="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/deployment_result.png">
+<meta property="og:image" content="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/attack_result.png">
+<meta property="og:updated_time" content="2018-05-10T10:00:01.396Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击">
 <meta name="twitter:description" content="ERC20的ProxyOverflow漏洞造成影响广泛，本文将对其攻击方法进行分析，以便于智能合约发布者提高自身代码安全性以及其他研究人员进行测试。本文选择传播广泛、影响恶劣的SMT漏洞（CVE-2018–10376）作为样本进行分析，文中所涉及的代码截图均来自于SMT代码。由于目前各大交易平台已经将ERC20协议的数字货币交易叫停，本文的发布不会对这些货币带来直接影响。  1. ERC20货币及">
-<meta name="twitter:image" content="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/SMT合约transferProxy函数.png">
+<meta name="twitter:image" content="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/SMT合约transferProxy函数.png">
   
     <link rel="alternate" href="/atom.xml" title="Tencent Security Zhanlu Lab" type="application/atom+xml">
   
@@ -101,7 +101,7 @@
 <p>ERC20货币的拥有者要想进行货币交易、余额查询等操作时，需要向智能合约对应的地址发送消息，声明调用的函数和相应参数。这一消息将会矿机接收，并执行智能合约中相应的函数代码。在这一过程中，消息发送者需要向挖矿成功的矿机支付相应的报酬。这笔报酬在以太坊中被称作gas，其支付货币为以太币。也就是说，ERC20的货币拥有者要想发送货币交易消息，就需要拥有一定数量的以太币。</p>
 <p>然而，ERC20货币拥有者并不一定拥有以太币。为了满足他们发起货币交易的需求，ERC20 协议提供了transferProxy函数。利用该函数，ERC20货币拥有者可以签署一个交易消息，并交由拥有以太币的第三方节点将其发送到以太坊上。消息的发送者会从拥有者那里获取一定数量的ERC20货币作为其发送消息的代理费用。</p>
 <h2 id="1-2-transferProxy函数代码分析"><a href="#1-2-transferProxy函数代码分析" class="headerlink" title="1.2 transferProxy函数代码分析"></a>1.2 transferProxy函数代码分析</h2><p>SMT的transferProxy函数代码如下图所示：</p>
-<p><img src="2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/SMT合约transferProxy函数.png" alt="SMT合约transferProxy函数"></p>
+<p><img src="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/SMT合约transferProxy函数.png" alt="SMT合约transferProxy函数"></p>
 <p>该函数的各个参数解释如下，该函数代码逻辑较为简单，此处不做赘述。</p>
 <ul>
 <li>address _from：ERC20     货币的拥有者和交易的发起者；</li>
@@ -113,14 +113,14 @@
 <li>uint _v，bytes32 _r，bytes32 _s：交易发起者（即_from）生成的签名数据。</li>
 </ul>
 <p>需注意的是，代码215行中的transferAllowed(_from)是transferProxy()运行前必会运行的验证函数。该函数代码如下： </p>
-<p><img src="2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/SMT.transferAllowed.png" alt="SMT合约transferAllowed函数"></p>
+<p><img src="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/SMT.transferAllowed.png" alt="SMT合约transferAllowed函数"></p>
 <p>代码117行中的exclude为映射结构，仅合约的创建者将为设置为True，其他地址默认均为False。</p>
 <p>代码118行判定transferEnabled标志符是否为true，该标志只能通过enableTransfer函数设定，且该函数只能被合约创建者调用，该函数的作用是使得ERC20合约的交易过程可控，这也是SMT等货币出现问题时能够在后续中止交易的原因：</p>
-<p><img src="2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/SMT.enableTransfer.png" alt="SMT合约enableTransfer函数"></p>
-<p><img src="2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/SMT.onlyOwner.png" alt="SMT合约onlyOwner函数"></p>
+<p><img src="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/SMT.enableTransfer.png" alt="SMT合约enableTransfer函数"></p>
+<p><img src="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/SMT.onlyOwner.png" alt="SMT合约onlyOwner函数"></p>
 <p>代码119-121行对于交易发送者（即_from）帐号是否被锁定进行了检查，lockFlag和locked都只能被合约创建者所控制： </p>
-<p><img src="2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/lock_defines.png" alt="SMT合约关于lock的定义"></p>
-<p><img src="2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/lock_functions.png" alt="SMT合约与lock相关的functions"></p>
+<p><img src="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/lock_defines.png" alt="SMT合约关于lock的定义"></p>
+<p><img src="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/lock_functions.png" alt="SMT合约与lock相关的functions"></p>
 <h1 id="2-攻击重现"><a href="#2-攻击重现" class="headerlink" title="2. 攻击重现"></a>2. 攻击重现</h1><p>为了重现攻击，我们选择了基于go语言编写的以太坊客户端geth进行以太坊私有网络的部署。为了便于实现可编程的自动化交互，我们选择了<a href="http://web3py.readthedocs.io/en/stable/index.html" target="_blank" rel="noopener">Web3.py</a>作为与以太坊节点交互的中间件。 </p>
 <p>##　2.1漏洞验证环境的搭建</p>
 <ol>
@@ -146,7 +146,7 @@
 <li>tx_receipt，该变量用于获取部署智能合约（23行）和发送启动交易消息（35行）的结果，当这两行代码被调用后，以太坊网络中会发布相应的消息，只有在下一个区块被挖掘出来后，tx_receipt才能获取非空的结果；</li>
 <li>contract_address，代表该合约被顺利部署到以太坊网络后的合约地址，其他节点要想调用合约代码，需要获知该地址以便发送函数调用消息。</li>
 </ol>
-<p><strong>合约代码部署结果的截图如下：</strong><br><img src="2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/deployment_result.png" alt="SMT合约部署的结果"></p>
+<p><strong>合约代码部署结果的截图如下：</strong><br><img src="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/deployment_result.png" alt="SMT合约部署的结果"></p>
 <h2 id="2-3-ProxyOverflow漏洞攻击"><a href="#2-3-ProxyOverflow漏洞攻击" class="headerlink" title="2.3 ProxyOverflow漏洞攻击"></a>2.3 ProxyOverflow漏洞攻击</h2><p>在节点2上，利用<a href="https://github.com/zhanlulab/Exploit_SMT_ProxyOverflow/blob/master/test_SMT.py" target="_blank" rel="noopener">test_SMT.py</a>脚本中的代码可实现针对SMT合约的一键攻击。</p>
 <p><strong>关于执行前的配置的介绍:</strong></p>
 <ol>
@@ -170,12 +170,12 @@
 <li>79-80行，获取并打印sender和signer在攻击后的SMT币数目。</li>
 </ol>
 <p><strong>攻击结果的截图如下：</strong></p>
-<p><img src="2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/attack_result.png" alt="ProxyOverflow攻击结果"></p>
+<p><img src="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/attack_result.png" alt="ProxyOverflow攻击结果"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/" data-id="cjh0bc2y50001hhdwlz1quu7g" class="article-share-link">Share</a>
+      <a data-url="https://zhanlulab.github.io/2018/05/10/在私有以太坊上实现针对ERC20数字货币ProxyOverflow漏洞的攻击/" data-id="cjh0d3gf800018fdwvw2hlg5f" class="article-share-link">Share</a>
       
       
     </footer>
