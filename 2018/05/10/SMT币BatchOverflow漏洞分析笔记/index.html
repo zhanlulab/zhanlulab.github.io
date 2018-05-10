@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://hikame.github.io/2018/05/10/SMT币BatchOverflow漏洞分析笔记/transaction_info.png">
 <meta property="og:image" content="https://hikame.github.io/2018/05/10/SMT币BatchOverflow漏洞分析笔记/smt_sourcecode.png">
 <meta property="og:image" content="https://hikame.github.io/2018/05/10/SMT%E5%B8%81BatchOverflow%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/smt_transaction.png">
-<meta property="og:updated_time" content="2018-05-10T08:46:09.364Z">
+<meta property="og:updated_time" content="2018-05-10T08:53:48.976Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SMT币BatchOverflow漏洞分析笔记">
 <meta name="twitter:description" content="此次漏洞发生的虚拟货币为SmartMesh，目前该货币以以太坊智能合约的形式发布，Token为0x55f93985431fc9304077687a35a1ba103dc1e081，最初触发漏洞的交易记录于如下图交易记录上:  根据Input Data中的信息，定位到SMT中发生错误的智能合约函数transferProxy，该函数主要用于没有以太币的SMT拥有者，将签署过的交易信息交由第三方节点进行">
@@ -91,18 +91,18 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>此次漏洞发生的虚拟货币为SmartMesh，目前该货币以以太坊智能合约的形式发布，Token为0x55f93985431fc9304077687a35a1ba103dc1e081，最初触发漏洞的交易记录于如下图交易记录上:</p>
-<p><img src="https://hikame.github.io/2018/05/10/SMT币BatchOverflow漏洞分析笔记/transaction_info.png" alt="transaction_info" title="记录攻击行为的交易信息"></p>
+<p><img src="https://hikame.github.io/2018/05/10/SMT币BatchOverflow漏洞分析笔记/transaction_info.png" alt="记录攻击行为的交易信息"></p>
 <p>根据Input Data中的信息，定位到SMT中发生错误的智能合约函数transferProxy，该函数主要用于没有以太币的SMT拥有者，将签署过的交易信息交由第三方节点进行发布，并对该节点发送SMT币以进行补偿。</p>
-<p><img src="https://hikame.github.io/2018/05/10/SMT币BatchOverflow漏洞分析笔记/smt_sourcecode.png" alt="smt_sourcecode" title="SMT合约transferProxy函数源码"></p>
+<p><img src="https://hikame.github.io/2018/05/10/SMT币BatchOverflow漏洞分析笔记/smt_sourcecode.png" alt="SMT合约transferProxy函数源码"></p>
 <p> 该函数的第一行对于此次交易转出者的余额进行校验。交易记录中的0-6变量依次对应于该函数的７个参数，此处的_feeSmt + _value实际为：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0x7000000000000000000000000000000000000000000000000000000000000001 +</span><br><span class="line">0x8fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</span><br></pre></td></tr></table></figure>
 <p>运算结果会被映射为uint256型数据，因此将会发生无符号整型数据的上溢，使计算结果为0，从而绕过了此处检查。这最终将导致msg.sender（发送交易消息的节点）和_to（钱币接受者）代表的钱包收到大量货币。这一过程被同样被记录在了以太坊的交易记录中，如下图最后两条记录所示，而后续发生的交易则是攻击者向其他钱包进行钱币转移的操作。</p>
-<p><img src="https://hikame.github.io/2018/05/10/SMT%E5%B8%81BatchOverflow%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/smt_transaction.png" alt="smt_sourcecode" title="SMT合约异常交易记录"></p>
+<p><img src="https://hikame.github.io/2018/05/10/SMT%E5%B8%81BatchOverflow%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/smt_transaction.png" alt="SMT合约异常交易记录"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zhanlulab.github.io/2018/05/10/SMT币BatchOverflow漏洞分析笔记/" data-id="cjh0ah4gn00009bdweit1nd7w" class="article-share-link">Share</a>
+      <a data-url="https://zhanlulab.github.io/2018/05/10/SMT币BatchOverflow漏洞分析笔记/" data-id="cjh0aq5x40000bbdwah7gtptw" class="article-share-link">Share</a>
       
       
     </footer>
